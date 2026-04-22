@@ -5,16 +5,29 @@ import Card from "../components/Card";
 function Home() {
   const [dogs, setDogs] = useState([]);
 
+  
+  const cargarPerros = async () => {
+    const data = await getDogs();
+    setDogs(data);
+  };
+
+  
   useEffect(() => {
-    getDogs().then(data => setDogs(data));
+    cargarPerros();
   }, []);
 
   return (
-    <div className="container">
-      {dogs.map((dog, index) => (
-        <Card key={index} image={dog} />
-      ))}
-    </div>
+    <>
+      <div className="container">
+        {dogs.map((dog, index) => (
+          <Card key={index} image={dog} />
+        ))}
+      </div>
+
+      <button onClick={cargarPerros}>
+        Cargar más perros
+      </button>
+    </>
   );
 }
 
